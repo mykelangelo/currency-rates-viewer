@@ -12,7 +12,7 @@ Trial task (authorization is working, rates are calculated and displayed, login 
 ## How to run application
 1. go to root folder of the project
 2. run docker-compose up
-3. run ./gradlew
+3. run ./gradlew composeUp
 4. work with the app in your browser
 5. run docker-compose down
 

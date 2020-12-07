@@ -37,7 +37,7 @@ public class RatesViewerService {
         log.warn("Calculations will take place");
         val currencies = new ArrayList<CurrencyListEntry>(HOW_MANY_DAYS);
         val today = LocalDate.now(ZoneId.of("UTC"));
-        for (int i = 0; i < HOW_MANY_DAYS; i++) 
+        for (int i = 0; i < HOW_MANY_DAYS; i++) {
             val date = today.minusDays(i);
             val historicalRates = ratesGetterService.getHistoricalRates(date);
 

@@ -8,12 +8,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
-@CrossOrigin
+@Validated
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -26,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("register")
-    public String register(@RequestBody UserDto user) {
+    public String register(@Valid @RequestBody UserDto user) {
         service.persistFreeUser(user);
         return "Success!";
     }
@@ -37,8 +39,8 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public String login(HttpServletRequest req, @RequestBody UserDto user){
-        service.authenticate(req, user);
+    public String login(HttpServletRequest request, @Valid @RequestBody UserDto user) throws ServletException {
+        request.login(user.getEmail(), user.getHash());
         return "Success!";
     }
 

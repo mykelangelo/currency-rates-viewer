@@ -1,0 +1,25 @@
+POST http://localhost:8080/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "his.email@example.com",
+  "hash": "$2y$12$jSqCWS82lQnqn.cQKGoi2uFC.YrXd.K05QyvGzbqDE6pWuAcAyq72"
+}
+
+###
+
+POST http://127.0.0.1:8080/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "his.email@example.com",
+  "hash": "$2y$12$jSqCWS82lQnqn.cQKGoi2uFC.YrXd.K05QyvGzbqDE6pWuAcAyq72"
+}
+
+###
+
+GET http://127.0.0.1:8080/rates/USD
+Content-Type: application/json
+Accept: application/json

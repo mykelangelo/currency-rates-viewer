@@ -29,25 +29,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http)
-            throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .mvcMatchers("/register").permitAll()
-                .mvcMatchers("/login").permitAll()
-                .mvcMatchers("/").permitAll()
+    protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
+        http
+            .csrf().disable()
+            .authorizeRequests()
+                .mvcMatchers("/", "/register", "/login")
+                    .permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
+                    .authenticated()
+            .and()
+            .httpBasic();
+        // @formatter:on
     }
+
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
     @Bean
+    @Override
     public AuthenticationManager authenticationManagerBean() {
         return new SampleAuthenticationManager(roleRepository, userRepository, bCryptPasswordEncoder());
     }

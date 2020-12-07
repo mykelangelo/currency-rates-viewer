@@ -1,18 +1,12 @@
-create table if not exists roles
+CREATE TABLE IF NOT EXISTS "roles"
 (
-    name       varchar(255) not null
-        constraint roles_pkey
-            primary key,
-    privileged boolean      not null
+    "name"       VARCHAR NOT NULL PRIMARY KEY,
+    "privileged" BOOLEAN NOT NULL
 );
 
-create table if not exists users
+CREATE TABLE IF NOT EXISTS "users"
 (
-    email      varchar(319) not null
-        constraint users_pkey
-            primary key,
-    hash       varchar(60),
-    role_name  varchar(255)
-        constraint fk6e7f1kfvvn2k48olww485qvo3
-            references roles
+    "email"     VARCHAR NOT NULL PRIMARY KEY,
+    "hash"      VARCHAR,
+    "role_name" VARCHAR REFERENCES "roles"
 );

@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RatesViewerService {
-    public static final String BASE_CURRENCY = "USD";
-    static List<String> usedCurrencies = List.of("EUR", "USD", "GBP", "NZD", "AUD", "JPY"); //todo read from db
-    static int HOW_MANY_DAYS = 10; //todo read from properties
+    private static final String BASE_CURRENCY = "USD";
+    private static final List<String> USED_CURRENCIES = List.of("EUR", "USD", "GBP", "NZD", "AUD", "JPY");
+    private static final int HOW_MANY_DAYS = 10;
     RatesGetterService ratesGetterService;
     CurrencyCodeValidatorService currencyCodeValidatorService;
 
@@ -43,14 +43,14 @@ public class RatesViewerService {
 
             List<CurrencyRate> currencyRates;
             if (currency.equalsIgnoreCase(BASE_CURRENCY)) {
-                currencyRates = usedCurrencies.stream()
-                        .map(cur -> new CurrencyRate(cur, toDouble(historicalRates.get(cur))))
-                        .collect(Collectors.toList());
+                currencyRates = USED_CURRENCIES.stream()
+                    .map(cur -> new CurrencyRate(cur, toDouble(historicalRates.get(cur))))
+                    .collect(Collectors.toList());
             } else {
                 val baseEq = toDouble(historicalRates.get(currency.toUpperCase(Locale.US)));
-                currencyRates = usedCurrencies.stream()
-                        .map(cur -> new CurrencyRate(cur, calculateEq(baseEq, toDouble(historicalRates.get(cur)))))
-                        .collect(Collectors.toList());
+                currencyRates = USED_CURRENCIES.stream()
+                    .map(cur -> new CurrencyRate(cur, calculateEq(baseEq, toDouble(historicalRates.get(cur)))))
+                    .collect(Collectors.toList());
             }
 
             currencies.add(new CurrencyListEntry(date, currencyRates));

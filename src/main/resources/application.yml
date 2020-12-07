@@ -2,8 +2,19 @@
 #  autoconfigure:
 #    exclude[0]: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 
-spring.cache.type: redis
 rate-providers:
   open-exchange:
     base-url: "https://openexchangerates.org/api"
     application-id: ${OPEN_EXCHANGE_RATES_APP_ID}
+spring:
+  cache.type: redis
+  jpa:
+    database: postgresql
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: validate
+    properties:
+      hibernate.default_schema: ${spring.flyway.default-schema}
+  flyway:
+    validate-migration-naming: true
+    default-schema: rainbow_database
+    schemas: ${spring.flyway.default-schema}

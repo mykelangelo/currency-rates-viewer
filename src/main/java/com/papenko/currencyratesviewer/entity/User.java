@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private static final long serialVersionUID = 872799842354444029L;
     @Id
+    @Email
     @NotBlank
     @Column(unique = true)
     @Size(min = 6, max = 319) //i@i.ua is the shortest possible email, and there can't be 320 symbols in a valid email
